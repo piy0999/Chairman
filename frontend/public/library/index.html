@@ -39,6 +39,11 @@ ul.topnav li.right {float: right;}
     ul.topnav li.right,
     ul.topnav li {float: none;}
 }
+img {
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
 </style>
 </head>
 <style>
@@ -48,23 +53,25 @@ ul.topnav li.right {float: right;}
     background-position: center;
     position: relative;
     margin: 0 auto;
-    width: 1280px;
-    height: 1000px;
+    width: 80%;
+    height: 50%;
 }
 </style>
 <body>
 
 <!-- Side Navigation -->
 <ul class="topnav">
-  <li><a href="#home">Home</a></li>
-  <li><a href="#news">Current</a></li>
-  <li><a href="#contact">Planner</a></li>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../current" >Current</a></li>
+  <li><a href="../planner">Planner</a></li>
 </ul>
 
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
   <div class="w3-center">
-    <h1> HKUST Library</h1>
+
+    <h1 style="font-size: 60px; font-family: ComicSansMS;">HKUST Library</h1>
+
   </div>
 </header>
 
@@ -90,6 +97,11 @@ ul.topnav li.right {float: right;}
   <center><img src='../images/Library_map.png'></center>
   <!--  <label id= "vacancy" style="position: relative; left: 420px; right: 400px; top: 200px;"> HERE </label> -->
 </div>
-
+<div style="height: 100%; width: 100%; margin: 0 auto;">
+<canvas id="myChart"></canvas>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript" src="graph.js"></script>
 </body>
 </html>

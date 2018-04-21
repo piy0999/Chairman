@@ -8,6 +8,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/dbdata', function(req, res) {
+  console.log('Rand');
   var db = req.db;
   var collection = db.get('seats');
   console.log(req.body);

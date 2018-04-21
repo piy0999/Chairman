@@ -45,14 +45,14 @@ ul.topnav li.right {float: right;}
 
 <!-- Side Navigation -->
 <ul class="topnav">
-  <li><a href="index.html">Home</a></li>
-  <li><a href="current.html" >Current</a></li>
-  <li><a href="planner.html">Planner</a></li>
+  <li><a href="../index.html">Home</a></li>
+  <li><a href="../current" >Current</a></li>
+  <li><a href="../planner">Planner</a></li>
 </ul>
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
   <div class="w3-center">
-    <h1> Chair Man </h1>
+    <h1 style="font-size: 60px; font-family: ComicSansMS;"> Chair Man </h1>
     <h4></h4>
   </div>
 </header>
@@ -79,14 +79,92 @@ ul.topnav li.right {float: right;}
 
 
 <h3><center>Planner</center></h3>
-  <div id="map"></div>
-  <style>
- #map {
-   width: 100%;
-   height: 400px;
-   background-color: grey;
- }
+
+<div style="height: 100%; width: 100%; margin: 0 auto;">
+<canvas id="myChart"></canvas>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+<script type="text/javascript" src="generate.js"></script>
+
+
+<style>
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #ddd;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
 </style>
+</head>
+<body>
+
+<h2>Seats availability predictor</h2>
+
+
+<div style="overflow-x:auto;">
+  <table>
+    <tr>
+      <th>Location</th>
+      <th>00:00-03:00</th>
+      <th>03:00-06:00</th>
+      <th>06:00-09:00</th>
+      <th>09:00-12:00</th>
+      <th>12:00-15:00</th>
+      <th>15:00-18:00</th>
+      <th>18:00-21:00</th>
+      <th>21:00-24:00</th>
+    </tr>
+    <tr>
+      <td>HKUST Library</td>
+      <td>100</td>
+      <td>100</td>
+      <td>90</td>
+      <td>40</td>
+      <td>20</td>
+      <td>10</td>
+      <td>10</td>
+      <td>40</td>
+
+    </tr>
+    <tr>
+      <td>Academic Building</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+      <td>50</td>
+      <td>40</td>
+      <td>0</td>
+      <td>0</td>
+      <td>300</td>
+
+    </tr>
+    <tr>
+      <td>Library Garden</td>
+      <td>100</td>
+      <td>100</td>
+      <td>80</td>
+      <td>60</td>
+      <td>30</td>
+      <td>0</td>
+      <td>20</td>
+      <td>10</td>
+
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+
 
 
 
