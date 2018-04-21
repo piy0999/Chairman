@@ -6,21 +6,51 @@
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body {margin: 0;}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #111;}
+
+ul.topnav li a.active {background-color: #4CAF50;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px){
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}
+</style>
+</head>
 <body>
 
 <!-- Side Navigation -->
-<nav class="w3-sidebar w3-bar-block w3-card w3-animate-left w3-center" style="display:none" id="mySidebar">
-  <h1 class="w3-xxxlarge w3-text-theme">Side Navigation</h1>
-  <button class="w3-bar-item w3-button" onclick="w3_close()">Close <i class="fa fa-remove"></i></button>
-  <a href="#" class="w3-bar-item w3-button">Link 1</a>
-  <a href="#" class="w3-bar-item w3-button">Link 2</a>
-  <a href="#" class="w3-bar-item w3-button">Link 3</a>
-  <a href="#" class="w3-bar-item w3-button">Link 4</a>
-</nav>
-
+<ul class="topnav">
+  <li><a href="#home">Home</a></li>
+  <li><a class="active" href="#news">Current</a></li>
+  <li><a href="#contact">Planner</a></li>
+</ul>
 <!-- Header -->
 <header class="w3-container w3-theme w3-padding" id="myHeader">
-  <i onclick="w3_open()" class="fa fa-bars w3-xlarge w3-button w3-theme"></i>
   <div class="w3-center">
     <h1> Chair Man </h1>
     <h4></h4>
@@ -58,47 +88,51 @@
  }
 </style>
   <script>
-    function initMap() {
-      var uluru ={lat: 22.3380, lng: 114.2641};
-      //{lat: 22.3964, lng: 114.1095}; hkust
-      var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
-        center: uluru
+  function initMap() {
+  var uluru = { lat: 22.338, lng: 114.2641 };
+  //{lat: 22.3964, lng: 114.1095}; hkust
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 17,
+    center: uluru
+  });
+  var loc = { lat: 22.338, lng: 114.2641 };
+  locations = [
+    ['HKUST library', 22.338009, 114.26414299999999],
+    ['Academic Building', 22.336084, 114.263609],
+    ['library Garden', 22.338618, 114.264102]
+  ];
+  var twoimage = 'images/two.png';
+  var redimage = 'images/red.png';
+  var infowindow = new google.maps.InfoWindow();
+  var marker, i;
+  for (i = 0; i < locations.length; i++) {
+    if (i == 0) {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        icon: twoimage
       });
-      var loc = {lat: 22.3380, lng: 114.2641};
-      locations=[["HKUST library",22.338009,114.26414299999999],["Academic Building",22.336084,114.263609],["library Garden",22.338618,114.264102]];
-      var twoimage="images/two.png";
-      var redimage="images/red.png";
-       var infowindow = new google.maps.InfoWindow();
-      var marker,i;
-      for (i = 0; i < locations.length; i++) {
-        if(i==0)
-        {
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map,
-            icon: twoimage
-          });
 
+      google.maps.event.addListener(
+        marker,
+        'click',
+        (function(marker, i) {
+          return function() {
+            window.location.href = 'library/index.html';
+            //infowindow.setContent(locations[i][0]);
+            //infowindow.open(map, marker);
+          };
+        })(marker, i)
+      );
+    } else {
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+        map: map,
+        icon: redimage
+      });
+    }
 
-          google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            return function() {
-              window.location.href = "library/index.html"
-              //infowindow.setContent(locations[i][0]);
-              //infowindow.open(map, marker);
-            }
-          })(marker, i));
-
-        }
-        else {
-          marker = new google.maps.Marker({
-            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-            map: map,
-            icon: redimage
-          });
-        }
-
-        /*
+    /*
          google.maps.event.addListener(marker, 'click', (function(marker, i) {
            return function() {
              window.location.href = "library/index.html"
@@ -109,20 +143,19 @@
 
          */
 
-         google.maps.event.addListener(marker, "mouseover", (function(marker, i) {
-           return function() {
-             infowindow.setContent(locations[i][0]);
-             infowindow.open(map, marker);
-           }
-         })(marker, i));
-
-
-
-       }
-
-
-    }
-  </script>
+    google.maps.event.addListener(
+      marker,
+      'mouseover',
+      (function(marker, i) {
+        return function() {
+          infowindow.setContent(locations[i][0]);
+          infowindow.open(map, marker);
+        };
+      })(marker, i)
+    );
+  }
+}
+</script>
   <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRmvxLDbJWjgcVSdwFwd0Rf_cqiKnv6Dw&callback=initMap">
   </script>
