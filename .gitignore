@@ -1,3 +1,6 @@
 env
 .DS_Store
 stream0.ts
+node_modules/
+popularTime/populartimes
+popularTime/env
