@@ -23,7 +23,7 @@ multiplier = 1
 def getFrame():
 	global frame
 	while True:
-		frame = video_capture.read()
+		_,frame = video_capture.read()
 
 def realtime():
 	while True:
@@ -41,9 +41,9 @@ def realtime():
 			cv2.destroyAllWindows()
 			break
 def bound_boxes():
-	 global bounding_boxes
-	 global scores
-	 while True:
+	global bounding_boxes
+	global scores
+	while True:
 		_, img_encoded = cv2.imencode('.jpg', frame)
 		response = requests.post(test_url, data=img_encoded.tostring(), headers=headers)
 		data = json.loads(response.text)
@@ -60,7 +60,8 @@ if __name__ == "__main__":
 	bounding_boxes = []
 	control = 0
 	video_capture = cv2.VideoCapture('/Users/mengjiunchiou/keras-retinanet/videos/IMG_8766.MOV')
-	frame = video_capture.read()
+	_,frame = video_capture.read()
+	cv2.imshow('frame',frame)
 
 	gfthread = threading.Thread(target=getFrame, args='')
 	gfthread.daemon = True
@@ -72,7 +73,7 @@ if __name__ == "__main__":
 
 	fathread = threading.Thread(target=bound_boxes, args='')
 	fathread.daemon = True
-	fathread.start()
+	#fathread.start()
 
 	while True: #keep main thread running while all three are non-daemon
 		pass
