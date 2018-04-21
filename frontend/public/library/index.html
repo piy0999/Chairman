@@ -7,6 +7,7 @@
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
@@ -61,7 +62,7 @@ img {
 <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <a class="navbar-brand" href="#"><img src="../images/plannerhero.png" width="30" height="30" class="d-inline-block align-top" alt="" style="margin-right:10px">Chairman</a>
+      <a class="navbar-brand" href="/"><img src="../images/plannerhero.png" width="30" height="30" class="d-inline-block align-top" alt="" style="margin-right:10px">Chairman</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -69,13 +70,13 @@ img {
       <div class="collapse navbar-collapse" id="navbarColor01">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">Home</a>
+            <a class="nav-link" href="/">Home</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="current">Current <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="/current">Current <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="planner">Planner</a>
+            <a class="nav-link" href="/planner">Planner</a>
           </li>
         </ul>
         <form class="form-inline">
@@ -96,13 +97,84 @@ img {
   </div>
   </div>
 </div>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
-<script type="text/javascript" src="graph.js"></script>
 </body>
+<script>
+function chart() {
+  var receiveddata;
+  console.log(window.location.origin + '/seats');
+  $.get(window.location.origin + '/seats', function(data) {
+    receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
+    console.log(receiveddata);
+    var ctx = document.getElementById('myChart').getContext('2d');
 
+    var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Zone 1', 'Zone 2', 'Zone 3'],
+        datasets: [
+          {
+            label: '# of Empty Seats',
+            data: [0, receiveddata, 0],
+            backgroundColor: [
+              'rgba(0, 255, 0, 0.6)',
+              'rgba(0, 255, 0, 0.6)',
+              'rgba(0, 255, 0, 0.6)'
+            ],
+            borderColor: [
+              'rgba(0, 255, 0, 0.6)',
+              'rgba(0, 255, 0, 0.6)',
+              'rgba(0, 255, 0, 0.6)'
+            ],
+            borderWidth: 1
+          },
+          {
+            label: '# of occupied seats',
+            data: [100, 100 - receiveddata, 100],
+            backgroundColor: [
+              'rgba(255, 0, 0, 0.6)',
+              'rgba(255, 0, 0, 0.6)',
+              'rgba(255, 0, 0, 0.6)'
+            ],
+            borderColor: [
+              'rgba(255, 0, 0, 0.6)',
+              'rgba(255, 0, 0, 0.6)',
+              'rgba(255, 0, 0, 0.6)'
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ],
+          xAxes: [
+            {
+              stacked: true,
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+  });
+}
+$(function() {
+  chart();
+  setInterval(chart, 3000);
+});
+</script>
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
 

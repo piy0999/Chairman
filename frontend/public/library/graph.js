@@ -1,4 +1,4 @@
-window.onload = function() {
+$(function() {
   var receiveddata;
   $.get(window.location.origin + ':8080/seats', function(data) {
     receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
@@ -64,4 +64,4 @@ window.onload = function() {
       }
     });
   });
-};
+});
