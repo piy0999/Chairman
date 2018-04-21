@@ -67,15 +67,27 @@
       });
       var loc = {lat: 22.3380, lng: 114.2641};
       locations=[["HKUST library",22.338009,114.26414299999999],["Academic Building",22.336084,114.263609]];
-      var image="images/two.png";
+      var twoimage="images/two.png";
+      var redimage="images/red.png";
        var infowindow = new google.maps.InfoWindow();
       var marker,i;
       for (i = 0; i < locations.length; i++) {
-         marker = new google.maps.Marker({
-           position: new google.maps.LatLng(locations[i][1], locations[i][2]),
-           map: map,
-           icon: image
-         });
+        if(i==0)
+        {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map,
+            icon: twoimage
+          });
+        }
+        else {
+          marker = new google.maps.Marker({
+            position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+            map: map,
+            icon: redimage
+          });
+        }
+
 
          google.maps.event.addListener(marker, 'click', (function(marker, i) {
            return function() {
