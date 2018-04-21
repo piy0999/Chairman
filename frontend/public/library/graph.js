@@ -1,7 +1,7 @@
-var receiveddata;
-window.onload = function() {
+$(function() {
+  var receiveddata;
   $.get(window.location.origin + ':8080/seats', function(data) {
-    receiveddata = (data['nOfSeats'] - data['nOfPeople']) % 100;
+    receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
     console.log(receiveddata);
     var ctx = document.getElementById('myChart').getContext('2d');
 
@@ -64,4 +64,4 @@ window.onload = function() {
       }
     });
   });
-};
+});
