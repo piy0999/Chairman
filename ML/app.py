@@ -36,7 +36,7 @@ def save_analysis(sess,resp):
     scores = data['scores']
 
     people_count = data['people_count']
-    #requests.post('http://10.89.7.25:8080/dbdata',data = {'space':'hkust_lib_zone_2','nOfSeats':200,'nOfPeople':people_count})
+    requests.post('http://chairman.southeastasia.cloudapp.azure.com:8080/dbdata',data = {'space':'hkust_lib_zone_2','nOfSeats':200,'nOfPeople':people_count})
 
 ret, frame = capture.read()
 _, img_encoded = cv2.imencode('.jpg', frame)
