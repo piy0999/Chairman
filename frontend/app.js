@@ -4,6 +4,11 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongo = require('mongodb');
+var monk = require('monk');
+var ObjectId = require('mongodb').ObjectID;
+
+var db = monk('localhost:27017/Chairman');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +26,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+db.then(() => {
+  console.log('Connected correctly to server');
+});
 
 app.use('/', index);
 app.use('/users', users);
