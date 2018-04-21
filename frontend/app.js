@@ -11,7 +11,7 @@ var ObjectId = require('mongodb').ObjectID;
 var db = monk('localhost:27017/Chairman');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var seats = require('./routes/seats');
 
 var app = express();
 
@@ -32,7 +32,7 @@ db.then(() => {
 });
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/', seats);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
