@@ -1,0 +1,1 @@
+streamlink --force --output stream0.ts https://www.youtube.com/watch?v=dXBjrx5MtAo best
