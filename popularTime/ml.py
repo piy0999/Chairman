@@ -23,7 +23,7 @@ for data in data_json:
 	day=weekday.index(data["name"])
 	hour=0;
 	for percentage in data["data"]:
-		df.loc[i] = [day,hour,percentage]
+		df.loc[i] = [day,hour+1,percentage]
 		hour=hour+1
 		i=i+1;
 
@@ -31,13 +31,15 @@ print(df)
 
 
 X = df.iloc[:,0:2]
+X = X.astype('int')
 y = df.iloc[:,2]
+y=y.astype('float')
 print(X)
 print (y)
 
-classifier = LogisticRegression(random_state=0)
+classifier = LogisticRegression(random_state=0,C=10)
 classifier.fit(X, y)
-y_pred = classifier.predict(X)
+y_pred = classifier.score(X,y)
 
 print(y_pred)
 #sklearn.linear_model.LinearRegression(fit_intercept=True, normalize=False, copy_X=True, n_jobs=1
