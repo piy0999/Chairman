@@ -15,7 +15,7 @@ router.post('/dbdata', function(req, res) {
   var curtime = String(today);
   collection.insert(
     {
-      room: req.body.room,
+      space: req.body.space,
       nOfSeats: req.body.nOfSeats,
       nOfPeople: req.body.nOfPeople,
       time: curtime
