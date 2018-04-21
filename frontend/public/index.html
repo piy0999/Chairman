@@ -48,7 +48,7 @@
 
 
 
-<h3>My Google Maps Demo</h3>
+<h3><center>Studying places around your location</center></h3>
   <div id="map"></div>
   <style>
  #map {
@@ -66,7 +66,7 @@
         center: uluru
       });
       var loc = {lat: 22.3380, lng: 114.2641};
-      locations=[["HKUST library",22.338009,114.26414299999999],["Academic Building",22.336084,114.263609]];
+      locations=[["HKUST library",22.338009,114.26414299999999],["Academic Building",22.336084,114.263609],["library Garden",22.338618,114.264102]];
       var twoimage="images/two.png";
       var redimage="images/red.png";
        var infowindow = new google.maps.InfoWindow();
@@ -79,6 +79,16 @@
             map: map,
             icon: twoimage
           });
+
+
+          google.maps.event.addListener(marker, 'click', (function(marker, i) {
+            return function() {
+              window.location.href = "library/index.html"
+              //infowindow.setContent(locations[i][0]);
+              //infowindow.open(map, marker);
+            }
+          })(marker, i));
+
         }
         else {
           marker = new google.maps.Marker({
@@ -88,7 +98,7 @@
           });
         }
 
-
+        /*
          google.maps.event.addListener(marker, 'click', (function(marker, i) {
            return function() {
              window.location.href = "library/index.html"
@@ -96,6 +106,17 @@
              //infowindow.open(map, marker);
            }
          })(marker, i));
+
+         */
+
+         google.maps.event.addListener(marker, "mouseover", (function(marker, i) {
+           return function() {
+             infowindow.setContent(locations[i][0]);
+             infowindow.open(map, marker);
+           }
+         })(marker, i));
+
+
 
        }
 
