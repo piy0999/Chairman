@@ -1,6 +1,6 @@
 var receiveddata;
 window.onload = function() {
-  $.get('http://localhost:8080/seats', function(data) {
+  $.get(window.location.origin + ':8080/seats', function(data) {
     receiveddata = (data['nOfSeats'] - data['nOfPeople']) % 100;
     console.log(receiveddata);
     var ctx = document.getElementById('myChart').getContext('2d');
