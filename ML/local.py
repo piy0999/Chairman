@@ -50,10 +50,6 @@ capture = cv2.VideoCapture('stream0.ts')
 cv2.namedWindow('image',cv2.WINDOW_NORMAL)
 cv2.resizeWindow('image', 600,600)
 
-bounding_boxes = []
-scores = []
-people_count = 0
-
 while(True):
 	ret, frame = capture.read()
 	if ret:
@@ -85,21 +81,6 @@ while(True):
 		    caption = "{} {:.3f}".format(labels_to_names[label], score)
 		    draw_caption(frame, b, caption)
 		    #print(b,caption)
-
-		temp_bounding_boxes = bounding_boxes
-		temp_scores = scores
-		temp_people_count = people_count
-		for i in range(0, len(temp_bounding_boxes)):
-			b = temp_bounding_boxes[i]
-			cv2.rectangle(frame, (b[0], b[1]), (b[2], b[3]), RGB_tuples[0], 6)
-
-			# Write label & score
-			caption = "%s: %.1f%%"%(labels_to_names[0], temp_scores[i]*100)
-			cv2.putText(frame, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 0, 0), 5)
-			cv2.putText(frame, caption, (b[0], b[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 255, 255), 2)
-
-			# write number of people
-			cv2.putText(frame, 'Number of People: ' + str(temp_people_count), (10, 700), cv2.FONT_HERSHEY_SIMPLEX, 2, (0, 0, 0), 2)
 
 		cv2.imshow('image',frame)
 	if cv2.waitKey(1) & 0xFF == ord('q'):
