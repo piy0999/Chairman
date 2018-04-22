@@ -90,20 +90,23 @@ img {
   <div class="card">
   <img class="card-img-top" src="../images/Library_map.png" alt="HKUST Library">
   <div class="card-body">
-    <p class="card-text">These are zone statistics from HKUST Library.</p>
-    <div style="height: 100%; width: 100%; margin: 0 auto;">
-    <canvas id="myChart"></canvas>
-    </div>
+    <center><p class="card-text badge badge-secondary" style="padding:10px">HKUST Library | Zone Statistics</p></center>
+    <button type="button" class="btn btn-info" style="display:block; margin: 10px auto auto auto;">
+  Occupied Seats <span class="badge badge-light" id="occupied">0</span>
+</button>
   </div>
+  </div>
+  <div style="padding-top:30px">
+    <canvas id="myChart" height=300px></canvas>
   </div>
 </div>
 </body>
 <script>
 function chart() {
   var receiveddata;
-  console.log(window.location.origin + '/seats');
   $.get(window.location.origin + '/seats', function(data) {
     receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
+    $("#occupied").text(data[0]['nOfPeople']);
     console.log(receiveddata);
     var ctx = document.getElementById('myChart').getContext('2d');
 

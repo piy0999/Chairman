@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
-<title>W3.CSS Template</title>
+<title>Future Statistics - Chairman</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <style>
@@ -40,6 +41,148 @@ ul.topnav li.right {float: right;}
     ul.topnav li.right,
     ul.topnav li {float: none;}
 }
+
+@import "compass/css3";
+
+body{background:#eee;}
+
+.scene{
+  position:absolute;
+  width:500px;
+  height:200px;
+  top:50%;
+  left:50%;
+  margin-top:-100px;
+  margin-left:-200px;
+  overflow:hidden;
+  &:after{
+    content:" ";
+    left:0;
+    top:0;
+    bottom:0;
+    width:100px;
+    @include background-image(linear-gradient(to right, #eee, rgba(#eee,0)));
+    position:absolute;
+  }
+  &:before{
+    content:" ";
+    right:0;
+    top:0;
+    bottom:0;
+    width:100px;
+    @include background-image(linear-gradient(to left, #eee, rgba(#eee,0)));
+    position:absolute;
+    z-index:10;
+  }
+  em{
+    display:none;
+    position:absolute;
+    bottom:20px;
+    left:55px;
+    right:0;
+    text-align:center;
+    font-style:normal;
+    font-family:Proxima Nova;
+    color:#0bb4a6;
+    letter-spacing:0.2em;
+  }
+}
+
+.car{
+  position:absolute;
+  top:70px;
+  left:30%;
+  animation: peel 2s ease-in-out forwards infinite, bump 0.2s linear infinite;
+}
+
+.poof{
+  position:absolute;
+  top:110px;
+  left:160px;
+  margin-left:-30px;
+  opacity:0;
+  animation: poof 2s ease-in-out forwards infinite;
+}
+
+.sign{
+  position:absolute;
+  right:-40px;
+  top:30px;
+  animation: sign 2s ease-in-out forwards infinite;
+}
+
+@keyframes sign {
+  0% {
+    right:-40px;
+  }
+  30% {
+    right:80px;
+  }
+  70% {
+    right:80px;
+  }
+  100% {
+    right:100%;
+  }
+}
+
+@keyframes peel {
+  0% {
+    transform: rotate(0deg);
+  }
+  70% {
+    transform: rotate(0deg);
+  }
+  73% {
+    transform: rotate(-9deg);
+  }
+  95% {
+    transform: rotate(-9deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes poof {
+  0% {
+    opacity:0;
+    transform: scale(1.0);
+  }
+  70% {
+    opacity:0;
+    left:170px;
+    transform: scale(1.0);
+  }
+  76% {
+    opacity:1;
+    transform: scale(1.3);
+    left:160px;
+  }
+  95% {
+    opacity:0;
+  }
+  100% {
+    opacity:0;
+    transform: scale(1.3);
+  }
+}
+
+@keyframes bump {
+  0% {
+    top:70px;
+  }
+  50% {
+    top:70px;
+  }
+  60% {
+    top:69px;
+  }
+  100% {
+    top:70px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -69,13 +212,24 @@ ul.topnav li.right {float: right;}
       </div>
     </nav>
 
-
-
-<h3><center>Planner</center></h3>
-
-<div style="height: 100%; width: 100%; margin: 0 auto;">
-<canvas id="myChart"></canvas>
+<div id="loading" style="display:none;">
+  <div class="scene text-align-center">
+  <img class="car" src="../images/superhero.svg" style="width:20%" alt="" />
+  <img class="sign" src="https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/UST.svg/1200px-UST.svg.png" style="width:15%" alt="" />
 </div>
+</div>
+
+
+<div class="container" id="planner" style="display:none; padding:20px">
+  <div class="row">
+    <div class="col-sm" style="padding:10px">
+  <center><span class="badge badge-info" style="margin:5px; padding:5px">15 April - 22 April, 2018</span></center>
+  <h5><center>Weekly Statistics</center></h5>
+  <div class="card">
+    <canvas id="myChart"></canvas>
+  </div>
+</div>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
 <script type="text/javascript" src="generate.js"></script>
 
@@ -95,13 +249,12 @@ th, td {
 
 tr:nth-child(even){background-color: #f2f2f2}
 </style>
-</head>
-<body>
+<div class="col-sm" style="padding:10px">
+<center><span class="badge badge-info" style="margin:5px; padding:5px">22 April, 2018</span></center>
+<h5><center>Empty Seats Predictor</center></h5>
 
-<h2>Seats availability predictor</h2>
-
-
-<div style="overflow-x:auto;">
+<div class="card">
+  <div style="overflow-x:auto;">
   <table>
     <tr>
       <th>Location</th>
@@ -152,8 +305,25 @@ tr:nth-child(even){background-color: #f2f2f2}
     </tr>
   </table>
 </div>
+</div>
+</div>
+</div>
+</div>
 
 </body>
+<script>
+function loading() {
+  $('#loading').show();
+  $('#planner').hide();
+  setTimeout(function() {
+    $('#loading').hide();
+    $('#planner').show();
+  }, 2000);
+}
+$(function() {
+  loading();
+});
+</script>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
