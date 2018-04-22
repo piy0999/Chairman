@@ -107,7 +107,7 @@ img {
 lastTime = '';
 function chart() {
   var receiveddata;
-  $.get('http://chairman.southeastasia.cloudapp.azure.com:8080' + '/seats', function(data) {
+  $.get(window.location.origin + '/seats', function(data) {
     receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
     $("#occupied").text(data[0]['nOfPeople']);
     if (data[0]['time'] != lastTime) {
