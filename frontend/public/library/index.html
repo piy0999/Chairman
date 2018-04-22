@@ -95,84 +95,91 @@ img {
   Occupied Seats <span class="badge badge-light" id="occupied">0</span>
 </button>
   </div>
-  </div>
+  <div class="card-footer text-muted text-center">
+    Updated: <span id="updated">22 April, 2018 12:30 PM</span>
+  </div></div>
   <div style="padding-top:30px">
     <canvas id="myChart" height=300px></canvas>
   </div>
 </div>
 </body>
 <script>
+lastTime = '';
 function chart() {
   var receiveddata;
-  $.get(window.location.origin + '/seats', function(data) {
+  $.get('http://chairman.southeastasia.cloudapp.azure.com:8080' + '/seats', function(data) {
     receiveddata = (data[0]['nOfSeats'] - data[0]['nOfPeople']) % 100;
     $("#occupied").text(data[0]['nOfPeople']);
-    console.log(receiveddata);
-    var ctx = document.getElementById('myChart').getContext('2d');
+    if (data[0]['time'] != lastTime) {
+      $("#updated").text((new Date(data[0]['time'])).toLocaleString([]));
+      console.log(receiveddata);
+      var ctx = document.getElementById('myChart').getContext('2d');
 
-    var myChart = new Chart(ctx, {
-      type: 'bar',
-      data: {
-        labels: ['Zone 1', 'Zone 2', 'Zone 3'],
-        datasets: [
-          {
-            label: '# of Empty Seats',
-            data: [0, receiveddata, 0],
-            backgroundColor: [
-              'rgba(0, 255, 0, 0.6)',
-              'rgba(0, 255, 0, 0.6)',
-              'rgba(0, 255, 0, 0.6)'
-            ],
-            borderColor: [
-              'rgba(0, 255, 0, 0.6)',
-              'rgba(0, 255, 0, 0.6)',
-              'rgba(0, 255, 0, 0.6)'
-            ],
-            borderWidth: 1
-          },
-          {
-            label: '# of occupied seats',
-            data: [100, 100 - receiveddata, 100],
-            backgroundColor: [
-              'rgba(255, 0, 0, 0.6)',
-              'rgba(255, 0, 0, 0.6)',
-              'rgba(255, 0, 0, 0.6)'
-            ],
-            borderColor: [
-              'rgba(255, 0, 0, 0.6)',
-              'rgba(255, 0, 0, 0.6)',
-              'rgba(255, 0, 0, 0.6)'
-            ],
-            borderWidth: 1
-          }
-        ]
-      },
-      options: {
-        scales: {
-          yAxes: [
+      var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: ['Zone 1', 'Zone 2', 'Zone 3'],
+          datasets: [
             {
-              stacked: true,
-              ticks: {
-                beginAtZero: true
-              }
-            }
-          ],
-          xAxes: [
+              label: '# of Empty Seats',
+              data: [0, receiveddata, 0],
+              backgroundColor: [
+                'rgba(0, 255, 0, 0.6)',
+                'rgba(0, 255, 0, 0.6)',
+                'rgba(0, 255, 0, 0.6)'
+              ],
+              borderColor: [
+                'rgba(0, 255, 0, 0.6)',
+                'rgba(0, 255, 0, 0.6)',
+                'rgba(0, 255, 0, 0.6)'
+              ],
+              borderWidth: 1
+            },
             {
-              stacked: true,
-              ticks: {
-                beginAtZero: true
-              }
+              label: '# of occupied seats',
+              data: [100, 100 - receiveddata, 100],
+              backgroundColor: [
+                'rgba(255, 0, 0, 0.6)',
+                'rgba(255, 0, 0, 0.6)',
+                'rgba(255, 0, 0, 0.6)'
+              ],
+              borderColor: [
+                'rgba(255, 0, 0, 0.6)',
+                'rgba(255, 0, 0, 0.6)',
+                'rgba(255, 0, 0, 0.6)'
+              ],
+              borderWidth: 1
             }
           ]
+        },
+        options: {
+          scales: {
+            yAxes: [
+              {
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ],
+            xAxes: [
+              {
+                stacked: true,
+                ticks: {
+                  beginAtZero: true
+                }
+              }
+            ]
+          }
         }
-      }
-    });
+      });
+      lastTime = data[0]['time']
+    }
   });
 }
 $(function() {
   chart();
-  setInterval(chart, 3000);
+  setInterval(chart, 8000);
 });
 </script>
 
