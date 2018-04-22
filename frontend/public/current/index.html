@@ -92,7 +92,7 @@ body{background:#eee;}
   position:absolute;
   top:70px;
   left:30%;
-  animation: peel 4s ease-in-out forwards infinite, bump 0.2s linear infinite;
+  animation: peel 2s ease-in-out forwards infinite, bump 0.2s linear infinite;
 }
 
 .poof{
@@ -101,14 +101,14 @@ body{background:#eee;}
   left:160px;
   margin-left:-30px;
   opacity:0;
-  animation: poof 4s ease-in-out forwards infinite;
+  animation: poof 2s ease-in-out forwards infinite;
 }
 
 .sign{
   position:absolute;
   right:-40px;
   top:30px;
-  animation: sign 4s ease-in-out forwards infinite;
+  animation: sign 2s ease-in-out forwards infinite;
 }
 
 @keyframes sign {
@@ -222,7 +222,7 @@ body{background:#eee;}
 <div class="container" id="view_map" style="display:none; padding:20px">
   <div class="card text-center">
     <div class="card-header badge-success">
-      Chairman has delivered. These are the closest learning spaces near you with their availablity.
+      Chairman has delivered. These are the learning spaces closest to you.
     </div>
     <div class="card-body">
       <div id="map"></div>
@@ -317,7 +317,7 @@ function loading() {
   setTimeout(function() {
     $('#loading').hide();
     $('#view_map').show();
-  }, 4000);
+  }, 2000);
 }
 $(function() {
   console.log('waqas');
